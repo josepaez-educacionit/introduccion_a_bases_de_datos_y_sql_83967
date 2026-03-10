@@ -44,6 +44,64 @@ SELECT
 FROM mascotas m
 INNER JOIN clientes c ON m.cliente_id = c.id;
 
+select M.Nombre, M.Genero, M.Fecha_nacimiento,
+		C.Apellido, C.Nombre,
+        E.Nombre as Especie,
+        R.Nombre as Raza
+from Mascotas M
+	inner join Clientes C on M.Cliente_Id = C.Id
+    inner join Especies E on M.especie_id = E.Id
+    inner join Razas R on M.raza_id = R.Id
+;
+
+-- Consultar Clientes y Cantidad de Mascotas
+select 	C.Id, C.Apellido, C.Nombre,
+		count(*) as Cantidad
+from Clientes C
+	inner join Mascotas M on C.Id = M.Cliente_Id
+group by C.Id, C.Apellido, C.Nombre  
+	having Cantidad >= 2 
+;
+
+
+-- 1. Creación de las tablas
+Use laboratorio;
+
+CREATE TABLE Tabla1 (
+    Codigo INT,
+    Nombre VARCHAR(15)
+);
+
+CREATE TABLE Tabla2 (
+    Codigo INT,
+    Nombre2 VARCHAR(15)
+);
+
+
+-- 2. Inserción de registros en Tabla1
+INSERT INTO Tabla1 (Codigo, Nombre) VALUES
+(1, 'A'),
+(3, 'C'),
+(8, 'H');
+
+-- 3. Inserción de registros en Tabla2
+INSERT INTO Tabla2 (Codigo, Nombre2) VALUES
+(3, 'Tres'),
+(5, 'Cinco'),
+(8, 'Ocho');
+
+select * from Tabla1;
+select * from Tabla2;
+
+
+use veterinaria;
+
+INSERT INTO `clientes` (`documento_identidad`, `tipo_documento`, `nombre`, `apellido`, `telefono`, `email`, `calle`, `numero_direccion`, `ciudad`, `codigo_postal`) VALUES 
+('987654321', 'dni', 'Juan', 'Valdez', '11-5234-9876', 'juan.valdez@yahoo.com.ar', 'San Martín', 854, 'Buenos Aires', '1000');
+
+INSERT INTO `especies` (`nombre`, `descripcion`) VALUES 
+('Rara', 'Especie no conocida - Mascota fuera de lo común');
+
 #  LEFT JOIN (LEFT OUTER JOIN)
 /*
 El LEFT JOIN devuelve todas las filas de la tabla izquierda y las filas coincidentes de la tabla derecha. 
@@ -58,6 +116,13 @@ Cuándo Usar LEFT JOIN
 	Análisis de completitud (clientes sin mascotas, servicios sin uso)
 */
 
+Use Laboratorio;
+select *
+from tabla1 t1
+	left join tabla2 t2 on t1.codigo = t2.codigo;
+    
+
+
 -- Obtener todos los clientes, tengan o no mascotas registradas
 /*
 Resultado:
@@ -65,6 +130,9 @@ Resultado:
 	✅ Incluye: Sus mascotas si las tienen
 	🔄 NULL: Para clientes sin mascotas, las columnas de mascota aparecen como NULL
 */
+
+
+use veterinaria;
 SELECT 
     c.nombre AS cliente,
     c.apellido,
@@ -88,6 +156,12 @@ Cuándo Usar RIGHT JOIN:
 	Cuando la lógica de consulta favorece la tabla derecha
 	Generalmente se prefiere reescribir como LEFT JOIN intercambiando las tablas
 */
+
+Use Laboratorio;
+select *
+from tabla1 t1
+	right join tabla2 t2 on t1.codigo = t2.codigo;
+
 
 -- Obtener todas las especies, tengan o no razas definidas
 /*
@@ -116,6 +190,13 @@ Cuándo Usar CROSS JOIN
 	- Matrices de análisis (combinaciones veterinario-servicio)
     - Análisis combinatorio en general
 */
+
+
+use laboratorio;
+
+select *
+from tabla1 cross join tabla2;
+
 
 -- Generar una matriz de todos los veterinarios con todos los servicios
 /*
@@ -154,4 +235,61 @@ order by   Veterinario, t.fecha, t.hora
 ;
 
 
+-- Ejemplo de Cross Join
+/*
+prompt 3:
+	Necesito una tabla con los 30 equipos participantes de la Liga Profesional Argentina 2026 (según la AFA), para una demostración de CROSS JOIN en SQL. Proporciona la definición de la tabla, las sentencias CREATE TABLE y los scripts INSERT con los datos correspondientes
+*/
+-- 1. Definición de la tabla
+Use laboratorio;
+CREATE TABLE Equipos_Liga_Argentina_2026 (
+    id_equipo INT PRIMARY KEY,
+    nombre_equipo VARCHAR(50) NOT NULL
+);
+
+
+-- 2. Inserción de los 30 equipos
+-- Los 30 clubes confirmados para la temporada 2026 son los siguientes.
+
+INSERT INTO Equipos_Liga_Argentina_2026 (id_equipo, nombre_equipo) VALUES
+(1, 'Aldosivi'),
+(2, 'Argentinos Juniors'),
+(3, 'Atlético Tucumán'),
+(4, 'Barracas Central'),
+(5, 'Banfield'),
+(6, 'Belgrano'),
+(7, 'Boca Juniors'),
+(8, 'Central Córdoba (Santiago del Estero)'),
+(9, 'Defensa y Justicia'),
+(10, 'Deportivo Riestra'),
+(11, 'Estudiantes de La Plata'),
+(12, 'Estudiantes de Río Cuarto'),
+(13, 'Gimnasia y Esgrima La Plata'),
+(14, 'Gimnasia de Mendoza'),
+(15, 'Huracán'),
+(16, 'Independiente'),
+(17, 'Independiente Rivadavia'),
+(18, 'Instituto'),
+(19, 'Lanús'),
+(20, 'Newell''s Old Boys'),
+(21, 'Platense'),
+(22, 'Racing Club'),
+(23, 'River Plate'),
+(24, 'Rosario Central'),
+(25, 'San Lorenzo'),
+(26, 'Sarmiento (Junín)'),
+(27, 'Talleres (Córdoba)'),
+(28, 'Tigre'),
+(29, 'Unión (Santa Fe)'),
+(30, 'Vélez Sarsfield');
+
+select * from Equipos_Liga_Argentina_2026;
+
+select 	L.Nombre_Equipo as Local,
+		V.Nombre_Equipo as Visitante
+from Equipos_Liga_Argentina_2026 L
+	cross join Equipos_Liga_Argentina_2026 V
+where L.Nombre_Equipo <> V.Nombre_Equipo
+order by Local, Visitante
+;
 
