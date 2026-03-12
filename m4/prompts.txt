@@ -1,0 +1,34 @@
+Agrupación usando la IA
+
+Prompt 1:
+	Hacer una query para una base de datos en MySQL donde muestre la cantidad de clientes que hay por país.
+
+Prompt 2:
+	Hacer una query para una base de datos en MySQL que muestre la fecha del primer cliente y la fecha del último cliente (el más reciente).
+
+
+
+JOINS ideados para la IA
+
+Prompt 1:
+	Hacer una query para una base de datos en MySQL que muestre todos los productos que fueron pedidos por el cliente cuyo identificador sea igual a 11.
+
+Prompt 2:
+	Hacer una query para una base de datos en MySQL donde muestre todos los clientes que hayan hecho una compra el último año.
+
+Prompt 3:
+	Hacer una query para una base de datos en MySQL que muestre todos los productos que tienen ventas por más de $5000 c/u.
+
+
+
+
+prompt 1:
+	Requiero que me proporciones la definición de dos tablas que simulen un escenario realista: nacimientos en la República Argentina durante el año 2020, diferenciando los datos por género. Una de las tablas debe contener información de nacimientos de varones y la otra, de mujeres.
+
+	Incluye las sentencias SQL necesarias para la creación de ambas tablas, así como los scripts de inserción con al menos 20 registros en cada una. Los datos generados deben ser de apariencia  verdadera y estar contextualizados para la región de Argentina.
+
+prompt 2:
+	Proporcionarías la definición de dos tablas, de acuerdo con la información que se muestra en la imagen adjunta. Incluye las sentencias SQL necesarias para la creación de ambas tablas, así como los scripts correspondientes para la inserción de los registros en cada una. 
+
+prompt 3:
+	Necesito una tabla con los 30 equipos participantes de la Liga Profesional Argentina 2026 (según la AFA), para una demostración de CROSS JOIN en SQL. Proporciona la definición de la tabla, las sentencias CREATE TABLE y los scripts INSERT con los datos correspondientes
